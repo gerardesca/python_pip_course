@@ -246,3 +246,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# images
+*.png
+*.jpg
