@@ -4,7 +4,14 @@ import charts
 
 def run():
   # leer la data del archivo csv
-  data = read_csv.read_csv('./project/data.csv')
+  data = read_csv.read_csv('./data.csv')
+
+  # filtrar por continente America del sur
+  data = list(filter(lambda item : item['Continent'] == 'South America', data))
+  
+  countries = list(map(lambda x: x['Country/Territory'], data))
+  percentages = list(map(lambda x: x['World Population Percentage'], data))
+  
   # filtrar data de acuerdo a un país
   country = input('Type Country => ')
 
@@ -15,7 +22,7 @@ def run():
     # se utiliza el item 0, es decir, el primer diccionario
     country = result[0]
     labels, values = utils.get_population(country)
-    #charts.generate_bar_chart(labels, values)
+    charts.generate_bar_chart(country['Country/Territory'], labels, values)
   else:
     print('The country does not exists')
 
