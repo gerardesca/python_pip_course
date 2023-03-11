@@ -1,8 +1,12 @@
 import utils
 import read_csv
 import charts
+import pandas as pd
 
 def run():
+
+  # esta es una forma de leer un archivo csv y filtrar con map
+  '''
   # leer la data del archivo csv
   data = read_csv.read_csv('./data.csv')
 
@@ -11,7 +15,15 @@ def run():
   
   countries = list(map(lambda x: x['Country/Territory'], data))
   percentages = list(map(lambda x: x['World Population Percentage'], data))
-  
+  '''
+
+  # aqui se utiliza la libreria pandas para realizar lo anterior
+  data = read_csv.read_csv('./data.csv')
+  df = pd.read_csv('./data.csv')
+  df = df[df['Continent'] == 'Africa']
+  countries = df['Country/Territory'].values
+  percentages = df['World Population Percentage'].values
+
   # filtrar data de acuerdo a un país
   country = input('Type Country => ')
 
@@ -27,7 +39,10 @@ def run():
     print('The country does not exists')
 
   # graficar pporcentaje de poblacion por pais
+  '''
+  # no se utiliza con el modulo de pandas
   countries, percentages = utils.percent_by_country(data)
+  '''
   charts.generate_pie_chart(countries, percentages)
 
 if __name__ == '__main__':
